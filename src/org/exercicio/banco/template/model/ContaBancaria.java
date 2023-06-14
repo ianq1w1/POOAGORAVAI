@@ -12,7 +12,7 @@ import java.util.Random;
 import org.exercicio.banco.template.model.enumerator.TipoTransacao;
 import org.exercicio.banco.template.persistence.PersistenciaEmArquivo;
 
-public class ContaBancaria implements Serializable {
+public class ContaBancaria implements Serializable, IConta {
 
 	/**
 	 * 
@@ -146,6 +146,30 @@ public class ContaBancaria implements Serializable {
 	}
 	
 	public void imprimirExtratoConta(int mes, int year) {
+		
+	}
+
+	@Override
+	public void transferir(IConta dest, BigDecimal valor) {
+		// TODO Auto-generated method stub
+		if (status && dest.isStatus()) {
+			if (valor.compareTo(BigDecimal.ZERO) < 0) {
+				System.err.println("Valor invalido para transferencia.");
+			} else if (valor.compareTo(saldo) <= 0) {
+				setSaldo(saldo.subtract(valor));
+				dest.setISaldo(dest.getSaldo().add(valor));
+				dest.getTransacoes().add(new RegistroTransacao(valor, TipoTransacao.TRANSACAO_CREDITO, LocalDateTime.now()));
+				transacoes.add(new RegistroTransacao(valor, TipoTransacao.TRANSACAO_DEBITO, LocalDateTime.now()));
+			} else
+				System.err.println("Saldo insuficiente para realizar a transferencia.");
+		} else {
+			System.err.println("Operacao nao pode ser realizada entre contas desativadas.");
+		}
+	}
+
+	@Override
+	public void setISaldo(BigDecimal saldo) {
+		// TODO Auto-generated method stub
 		
 	}
 
