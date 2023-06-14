@@ -1,10 +1,12 @@
 package org.exercicio.banco.template.application;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Scanner;
 
 import org.exercicio.banco.template.model.Cliente;
-import org.exercicio.banco.template.model.ContaBancaria;
+import org.exercicio.banco.template.model.ContaCorrente;
+import org.exercicio.banco.template.model.ContaPoupanca;
 import org.exercicio.banco.template.persistence.PersistenciaEmArquivo;
 
 public class Application {
@@ -18,6 +20,9 @@ public class Application {
 			System.out.println("1. Cadastrar novo cliente");
 			System.out.println("2. Selecionar cliente existente");
 			System.out.println("3. Sair");
+			System.out.println("4. Listar todos os clientes cadastrados");
+			System.out.println("5. Remover cliente");
+			
 
 			int opcao = scanner.nextInt();
 			scanner.nextLine();
@@ -42,6 +47,7 @@ public class Application {
 					System.out.println("Cliente não encontrado");
 					break;
 				}
+				
 
 				System.out.println("Cliente selecionado: " + cliente.getNome());
 				System.out.println("\nO que você gostaria de fazer?\n");
@@ -56,17 +62,38 @@ public class Application {
 
 				switch (opcao) {
 				case 1:
-					ContaBancaria conta = new ContaBancaria();
-					cliente.adicionarConta(conta);
-					PersistenciaEmArquivo.getInstance().atualizarClienteCadastro(cliente);
-					System.out.println("Conta criada com sucesso!");
-					break;
+					System.out.println("Qual tipo de conta deseja criar?");
+					System.out.println("1. Conta corrente");
+					System.out.println("2. Conta poupança");
+					
+					opcao = scanner.nextInt();
+					scanner.nextLine();
+				
+					switch (opcao) {
+					case 1:
+						ContaCorrente contaC = new ContaCorrente();
+						cliente.adicionarConta(contaC);
+						PersistenciaEmArquivo.getInstance().atualizarClienteCadastro(cliente);
+						System.out.println("Conta corrente criada com sucesso!");
+						break;					
+					
+					case 2:
+						ContaPoupanca contaP = new ContaPoupanca();
+						cliente.adicionarConta(contaP);
+						PersistenciaEmArquivo.getInstance().atualizarClienteCadastro(cliente);
+						System.out.println("Conta criada com sucesso!");
+						break;					
+					}
 
 				case 2:
 					if (cliente.getContas().size() == 0) {
 						System.err.println("Nao ha contas associada a este cliente.");
 					} else {
-						for (ContaBancaria c : cliente.getContas()) {
+						for (ContaCorrente c : cliente.getContas()) {
+							System.out.println(c);
+						}
+					}else {
+						for (ContaPoupanca c : cliente.getContas()) {
 							System.out.println(c);
 						}
 					}
@@ -75,7 +102,11 @@ public class Application {
 					if (cliente.getContas().size() == 0) {
 						System.err.println("Nao ha contas associada a este cliente.");
 					} else {
-						for (ContaBancaria c : cliente.getContas()) {
+						for (ContaCorrente c : cliente.getContas()) {
+							System.out.println(c);
+						}
+					} else {
+						for (ContaPoupanca c : cliente.getContas()) {
 							System.out.println(c);
 						}
 					}
@@ -85,7 +116,7 @@ public class Application {
 					opcaoContaDeposito = scanner.nextInt();
 					System.out.println("Insira o valor da quantia a ser depositada: ");
 					quantia = scanner.nextDouble();
-					ContaBancaria temp = cliente.localizarContaNumero(opcaoContaDeposito);
+					ContaCorrente temp = cliente.localizarContaNumero(opcaoContaDeposito);
 					if (temp != null) {
 						temp.depositar(new BigDecimal(quantia));
 						PersistenciaEmArquivo.getInstance().atualizarClienteCadastro(cliente);
@@ -99,7 +130,16 @@ public class Application {
 			case 3:
 				System.out.println("Até logo!");
 				System.exit(0);
-
+			
+			case 4:
+				PersistenciaEmArquivo.getInstance().listarClientes();
+			        break;
+			case 5:
+				System.out.println("Digite o CPF do cliente:");
+				cpf = scanner.next();
+				PersistenciaEmArquivo.getInstance().removerCliente(cpf);
+				break;
+			
 			default:
 				System.out.println("Opção inválida");
 				break;

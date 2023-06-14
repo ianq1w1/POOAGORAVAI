@@ -55,6 +55,27 @@ public class PersistenciaEmArquivo implements Serializable {
 			return null;
 	}
 	
+	public void listarClientes() {
+		System.out.println(" CONTAS LISTADAS ");
+		for(Cliente cliente : cadastroClientes) {
+			System.out.println(cliente);
+		}
+	}
+	
+	public void removerCliente(String cpf) {
+		for (Cliente c : cadastroClientes) {
+		if (!cadastroClientes.contains(cpf)) {
+			cadastroClientes.remove(c);
+			salvarDadosEmArquivo();
+			System.out.println("Cliente removido com sucesso!");
+		} else
+			System.err.println("Cliente já removido no sistema!");
+		}
+
+	}
+	
+
+	
 	public void atualizarClienteCadastro(Cliente c) {
 		if(cadastroClientes.contains(c)) {
 			int index = cadastroClientes.indexOf(c);
@@ -79,6 +100,7 @@ public class PersistenciaEmArquivo implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
 
 	private void carregarDadosDeArquivo() {
 

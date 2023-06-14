@@ -16,7 +16,7 @@ public class Cliente implements Serializable{
 	private String cpf;
 	private String nome;
 	
-	private List<ContaBancaria> contas;
+	private List<ContaCorrente> contas;
 	
 	public Cliente() {
 		
@@ -43,11 +43,11 @@ public class Cliente implements Serializable{
 		this.nome = nome;
 	}
 
-	public List<ContaBancaria> getContas() {
+	public List<ContaCorrente> getContas() {
 		return contas;
 	}
 
-	public void setContas(List<ContaBancaria> contas) {
+	public void setContas(List<ContaCorrente> contas) {
 		this.contas = contas;
 	}
 
@@ -71,7 +71,7 @@ public class Cliente implements Serializable{
 		return Objects.equals(cpf, other.cpf);
 	}
 	
-    public void adicionarConta(ContaBancaria c) {
+    public void adicionarConta(ContaCorrente c) {
     	
     		if (contas.contains(c)) {
     			System.out.print("A conta jah estah associada a este cliente.");
@@ -83,7 +83,7 @@ public class Cliente implements Serializable{
     }
 
     
-    public void removerConta(ContaBancaria c) {
+    public void removerConta(ContaCorrente c) {
 
     	if(contas.contains(c)) {
     		this.contas.remove(c) ;
@@ -94,10 +94,10 @@ public class Cliente implements Serializable{
     	}
     }
 
-    public ContaBancaria localizarContaNumero(int numero) {
+    public ContaCorrente localizarContaNumero(int numero) {
 
 		for (int i = 0; i < contas.size(); i++) {
-			ContaBancaria c = contas.get(i);
+			ContaCorrente c = contas.get(i);
 
 			if (c.getNumeroConta() == numero) {
 				System.out.print("Conta encontrada!");
@@ -112,7 +112,7 @@ public class Cliente implements Serializable{
     	
 		double ValorSaldo = 0.0;
 		for (int i = 0; i < contas.size(); i++) {
-			ContaBancaria c = contas.get(i);
+			ContaCorrente c = contas.get(i);
 			ValorSaldo += c.getSaldo().doubleValue();
 		}
 

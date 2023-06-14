@@ -12,7 +12,7 @@ import java.util.Random;
 import org.exercicio.banco.template.model.enumerator.TipoTransacao;
 import org.exercicio.banco.template.persistence.PersistenciaEmArquivo;
 
-public class ContaBancaria implements Serializable, IConta {
+public class ContaCorrente implements Serializable, IConta {
 
 	/**
 	 * 
@@ -24,7 +24,7 @@ public class ContaBancaria implements Serializable, IConta {
 	private boolean status;
 	private List<RegistroTransacao> transacoes;
 
-	public ContaBancaria() {
+	public ContaCorrente() {
 		this.numeroConta = new Random().nextInt(999999999);
 		this.saldo = BigDecimal.ZERO;
 		saldo.setScale(4, RoundingMode.HALF_UP);
@@ -82,7 +82,7 @@ public class ContaBancaria implements Serializable, IConta {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ContaBancaria other = (ContaBancaria) obj;
+		ContaCorrente other = (ContaCorrente) obj;
 		return Objects.equals(numeroConta, other.numeroConta);
 	}
 
@@ -128,7 +128,7 @@ public class ContaBancaria implements Serializable, IConta {
 
 	}
 
-	public void transferir(ContaBancaria c, BigDecimal quantia) {
+	public void transferir(ContaCorrente c, BigDecimal quantia) {
 		if (status && c.isStatus()) {
 			if (quantia.compareTo(BigDecimal.ZERO) < 0) {
 				System.err.println("Valor invalido para transferencia.");
