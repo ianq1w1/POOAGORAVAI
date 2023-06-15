@@ -16,7 +16,7 @@ public class Cliente implements Serializable{
 	private String cpf;
 	private String nome;
 	
-	private List<ContaCorrente> contas;
+	private List<IConta> contas;
 	
 	public Cliente() {
 		
@@ -43,11 +43,11 @@ public class Cliente implements Serializable{
 		this.nome = nome;
 	}
 
-	public List<ContaCorrente> getContas() {
+	public List<IConta> getContas() {
 		return contas;
 	}
 
-	public void setContas(List<ContaCorrente> contas) {
+	public void setContas(List<IConta> contas) {
 		this.contas = contas;
 	}
 
@@ -71,7 +71,7 @@ public class Cliente implements Serializable{
 		return Objects.equals(cpf, other.cpf);
 	}
 	
-    public void adicionarConta(ContaCorrente c) {
+    public void adicionarConta(IConta c) {
     	
     		if (contas.contains(c)) {
     			System.out.print("A conta jah estah associada a este cliente.");
@@ -94,10 +94,10 @@ public class Cliente implements Serializable{
     	}
     }
 
-    public ContaCorrente localizarContaNumero(int numero) {
+    public IConta localizarContaNumero(int numero) {
 
 		for (int i = 0; i < contas.size(); i++) {
-			ContaCorrente c = contas.get(i);
+			IConta c = contas.get(i);
 
 			if (c.getNumeroConta() == numero) {
 				System.out.print("Conta encontrada!");
@@ -112,12 +112,16 @@ public class Cliente implements Serializable{
     	
 		double ValorSaldo = 0.0;
 		for (int i = 0; i < contas.size(); i++) {
-			ContaCorrente c = contas.get(i);
+			IConta c = contas.get(i);
 			ValorSaldo += c.getSaldo().doubleValue();
 		}
 
 		System.out.print("Balanco entre contas: RS" + ValorSaldo );
 		return ValorSaldo;
     }
+	public void removerConta(IConta c) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
