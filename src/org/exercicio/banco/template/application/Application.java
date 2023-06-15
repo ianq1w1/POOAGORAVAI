@@ -91,7 +91,7 @@ public class Application {
 						System.err.println("Nao ha contas associada a este cliente.");
 					} else {
 						for (IConta c : cliente.getContas()) {
-							System.out.println(c);
+							System.out.println("Numero da conta:" + c.getNumeroConta() + "," + "saldo:" + c.getSaldo());
 						}
 					}
 					break;

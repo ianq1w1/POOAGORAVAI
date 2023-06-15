@@ -173,4 +173,10 @@ public class ContaPoupanca implements Serializable, IConta {
 		
 	}
 
+	@Override
+	public void getSaldo(BigDecimal saldo) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

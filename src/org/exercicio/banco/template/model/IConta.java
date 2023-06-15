@@ -12,4 +12,5 @@ public interface IConta {
 	public BigDecimal getSaldo();
 	public void setISaldo(BigDecimal saldo);
 	public List <RegistroTransacao> getTransacoes();
+	public void getSaldo(BigDecimal saldo);
 }

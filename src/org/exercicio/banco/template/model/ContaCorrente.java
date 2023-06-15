@@ -53,9 +53,6 @@ public class ContaCorrente implements Serializable, IConta {
 		return dataAbertura;
 	}
 
-	private void setDataAbertura(LocalDateTime dataAbertura) {
-		this.dataAbertura = dataAbertura;
-	}
 
 	public boolean isStatus() {
 		return status;
@@ -169,6 +166,12 @@ public class ContaCorrente implements Serializable, IConta {
 
 	@Override
 	public void setISaldo(BigDecimal saldo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getSaldo(BigDecimal saldo) {
 		// TODO Auto-generated method stub
 		
 	}
